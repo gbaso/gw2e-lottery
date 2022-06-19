@@ -24,7 +24,10 @@ public class Account extends BaseEntity {
 
     @NaturalId
     @Column(nullable = false)
-    private String name;
+    private String  name;
+
+    @Column
+    private String  alias;
 
     @Column(nullable = false)
     private boolean main;
