@@ -5,24 +5,15 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Value;
+public record Giveaway(
+        @JsonProperty("_id") String id,
+        String group,
+        Instant startsAt,
+        Instant endsAt,
+        List<Giveaway.Prize> prizes,
+        int prizepool,
+        int contestants) {
 
-@Value
-public class Giveaway {
-
-    @JsonProperty("_id")
-    String      id;
-    String      group;
-    Instant     startsAt;
-    Instant     endsAt;
-    List<Prize> prizes;
-    int         prizepool;
-    int         contestants;
-
-    @Value
-    public static class Prize {
-        int id;
-        int count;
-    }
+    public static record Prize(int id, int count) {}
 
 }
