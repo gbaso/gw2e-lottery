@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.gbaso</groupId>
     <artifactId>gw2e-lottery</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>gw2e-lottery</name>
     <description>Automatic lottery subscriber for GW2 Efficiency</description>
     <properties>
