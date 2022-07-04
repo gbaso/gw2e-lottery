@@ -45,9 +45,13 @@ public class GiveawayService {
     }
 
     public boolean enteredCurrent(String name) throws IOException {
-        List<Partecipation> partecipations = partecipation(name);
         var current = current();
-        return partecipations.stream().anyMatch(it -> it.giveawayId().equals(current.id()));
+        return entered(name, current.id());
+    }
+
+    public boolean entered(String name, String giveawayId) throws IOException {
+        List<Partecipation> partecipations = partecipation(name);
+        return partecipations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
     }
 
     public String enter(String name, String giveawayId) throws IOException {
