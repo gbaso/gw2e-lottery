@@ -42,7 +42,7 @@ public class Gw2EfficiencyClient {
     private HttpUrl buildUrl(String path, Map<String, String> params) {
         var builder = baseUrl.newBuilder()
                 .addPathSegments(path)
-                .addQueryParameter("v", properties.getApi().getVersion());
+                .addQueryParameter("v", properties.api().version());
         params.entrySet().forEach(e -> builder.addQueryParameter(e.getKey(), e.getValue()));
         return builder.build();
     }

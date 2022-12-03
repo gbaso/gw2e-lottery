@@ -2,17 +2,9 @@ package com.github.gbaso.gw2elottery.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import lombok.Data;
-
-@Data
 @ConfigurationProperties("gw2")
-public class Gw2Properties {
+public record Gw2Properties(Gw2Properties.Api api) {
 
-    private Api api = new Api();
-
-    @Data
-    public static class Api {
-        private String version;
-    }
+    public static record Api(String version) {}
 
 }
