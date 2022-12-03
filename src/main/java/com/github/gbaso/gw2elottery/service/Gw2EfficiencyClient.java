@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.github.gbaso.gw2elottery.Gw2Properties;
+import com.github.gbaso.gw2elottery.config.Gw2Properties;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.github.gbaso.gw2elottery;
+package com.github.gbaso.gw2elottery.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
