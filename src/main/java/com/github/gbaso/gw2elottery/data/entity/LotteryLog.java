@@ -5,7 +5,7 @@ import java.time.Instant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,8 +24,10 @@ import lombok.ToString;
 @Entity
 public class LotteryLog extends BaseEntity {
 
+	@Column(nullable = false, updatable = false)
 	private String accountName;
 
+	@Column(nullable = false, updatable = false)
 	private String giveawayId;
 
 	private String status;
@@ -33,7 +35,7 @@ public class LotteryLog extends BaseEntity {
 	@Column(length = 1000)
 	private String error;
 
-	@UpdateTimestamp
+	@CreationTimestamp
 	@Setter(value = AccessLevel.NONE)
 	private Instant timestamp;
 
