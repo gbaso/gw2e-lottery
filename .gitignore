@@ -32,4 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+## DBeaver ##
+.dbeaver
+Scripts/
+
 config/
