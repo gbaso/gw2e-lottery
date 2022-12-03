@@ -1,7 +1,7 @@
 package com.github.gbaso.gw2elottery.data.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.NaturalId;
 

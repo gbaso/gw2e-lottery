@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      '[hibernate.format_sql]': true
+
+logging:
+  level:
+    root: info
+    jdbc: warn
+
+log4jdbc:
+  dump:
+    sql:
+      addsemicolon: true
+      maxlinelength: 0
+  sqltiming:
+    warn:
+      threshold: 50
+    error:
+      threshold: 300
+
+gw2:
+  api:
+    version: 2021-07-24T00:00:00Z
