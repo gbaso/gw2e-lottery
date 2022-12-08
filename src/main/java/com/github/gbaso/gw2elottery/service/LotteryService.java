@@ -31,7 +31,7 @@ public class LotteryService {
         for (var account : accounts) {
             String accountName = account.getName();
 			if (!giveawayService.entered(accountName, currentGiveawayId)) {
-                log.info("Entering account {} into current giveaway", account.getAlias());
+                log.info("Entering account {} into giveaway {}", account.getAlias(), currentGiveawayId);
                 enterGiveaway(currentGiveawayId, accountName);
             } else {
                 log.debug("Skipping account {}, already entered", account.getAlias());
