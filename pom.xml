@@ -14,6 +14,7 @@
 	<description>Automatic lottery subscriber for GW2 Efficiency</description>
 	<properties>
 		<java.version>17</java.version>
+		<gitflow-maven-plugin.version>1.19.0</gitflow-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -94,6 +95,37 @@
 					</excludes>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                    <commitIdGenerationMode>full</commitIdGenerationMode>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>${gitflow-maven-plugin.version}</version>
+                <configuration>
+                    <commitMessagePrefix xml:space="preserve">[RELEASE] </commitMessagePrefix>
+                    <gpgSignCommit>true</gpgSignCommit>
+                    <gpgSignTag>true</gpgSignTag>
+                    <pushRemote>true</pushRemote>
+                    <versionDigitToIncrement>2</versionDigitToIncrement>
+                    <verbose>true</verbose>
+                    <gitFlowConfig>
+                        <versionTagPrefix>v</versionTagPrefix>
+                        <productionBranch>main</productionBranch>
+                        <developmentBranch>main </developmentBranch>
+                    </gitFlowConfig>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
