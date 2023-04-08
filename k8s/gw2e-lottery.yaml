@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gw2e-lottery
+  namespace: gw2e-lottery
+  labels:
+    app: gw2e-lottery
+spec:
+  selector:
+    matchLabels:
+      app: gw2e-lottery
+  template:
+    metadata:
+      labels:
+        app: gw2e-lottery
+    spec:
+      containers:
+      - name: gw2e-lottery
+        image: gbaso/gw2e-lottery:1.1.2-SNAPSHOT
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: gw2e-lottery-configmap
+              key: postgres-url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: gw2e-lottery-secret
+              key: postgres-username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: gw2e-lottery-secret
+              key: postgres-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gw2e-lottery
+  namespace: gw2e-lottery
+spec:
+  selector:
+    app: gw2e-lottery
+  ports:
+  - port: 8080
+    targetPort: 8080
