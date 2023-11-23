@@ -4,4 +4,4 @@ metadata:
   name: gw2e-lottery-configmap
   namespace: gw2e-lottery
 data:
-  postgres-url: <jdbc_url>
+  postgres-url: "jdbc:postgresql://db:5432/gw2e_lottery"
