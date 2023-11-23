@@ -7,7 +7,7 @@ metadata:
     name: gw2e-lottery-ingress
 spec:
   rules:
-  - host: gw2elottery.com
+  - host: gw2e-lottery.local
     http:
       paths:
       - pathType: Prefix
