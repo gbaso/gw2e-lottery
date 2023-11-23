@@ -40,7 +40,7 @@ public class GiveawayService {
                 .orElseThrow();
     }
 
-    public List<Partecipation> partecipation(String name) throws IOException {
+    public List<Partecipation> participation(String name) throws IOException {
         try (var response = client.get("giveaways/participation", Map.of("name", name))) {
             var type = mapper.getTypeFactory().constructCollectionType(List.class, Partecipation.class);
             return mapper.readValue(requireNonNull(response.body()).byteStream(), type);
@@ -53,8 +53,8 @@ public class GiveawayService {
     }
 
     public boolean entered(String name, String giveawayId) throws IOException {
-        List<Partecipation> partecipations = partecipation(name);
-        return partecipations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
+        List<Partecipation> participations = participation(name);
+        return participations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
     }
 
     public String enter(String name, String giveawayId) throws IOException {

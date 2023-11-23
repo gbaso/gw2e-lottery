@@ -32,9 +32,9 @@ public class GiveawayController {
         return giveawayService.current();
     }
 
-    @GetMapping("/partecipation")
-    public List<Partecipation> partecipation(@RequestParam String name) throws IOException {
-        return giveawayService.partecipation(name);
+    @GetMapping("/participation")
+    public List<Partecipation> participation(@RequestParam String name) throws IOException {
+        return giveawayService.participation(name);
     }
 
     @GetMapping("/current/entered")
