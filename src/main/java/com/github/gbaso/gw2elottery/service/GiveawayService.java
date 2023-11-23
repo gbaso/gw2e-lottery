@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import com.github.gbaso.gw2elottery.data.dto.Giveaway;
 import com.github.gbaso.gw2elottery.data.dto.Partecipation;
 
 import lombok.RequiredArgsConstructor;
+
+import static java.util.Objects.requireNonNull;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class GiveawayService {
     public List<Partecipation> partecipation(String name) throws IOException {
         try (var response = client.get("giveaways/participation", Map.of("name", name))) {
             var type = mapper.getTypeFactory().constructCollectionType(List.class, Partecipation.class);
-            return mapper.readValue(response.body().byteStream(), type);
+            return mapper.readValue(requireNonNull(response.body()).byteStream(), type);
         }
     }
 
@@ -56,7 +59,7 @@ public class GiveawayService {
 
     public String enter(String name, String giveawayId) throws IOException {
         try (var response = client.get("giveaways/enter", Map.of("name", name, "giveaway_id", giveawayId))) {
-            JsonNode json = mapper.readTree(response.body().byteStream());
+            JsonNode json = mapper.readTree(requireNonNull(response.body()).byteStream());
             return json.get("status").asText();
         }
     }
