@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class GiveawayService {
 
     private final Gw2EfficiencyClient client;
-    private final ObjectMapper        mapper;
+    private final ObjectMapper mapper;
 
     public List<Giveaway> list() throws IOException {
         try (var response = client.get("giveaways/list", Map.of())) {

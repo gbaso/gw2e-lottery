@@ -19,8 +19,8 @@ import okhttp3.Response;
 @RequiredArgsConstructor
 public class Gw2EfficiencyClient {
 
-    private final OkHttpClient  client  = new OkHttpClient();
-    private final HttpUrl       baseUrl = HttpUrl.get("https://api.gw2efficiency.com");
+    private final OkHttpClient client = new OkHttpClient();
+    private final HttpUrl baseUrl = HttpUrl.get("https://api.gw2efficiency.com");
 
     private final Gw2Properties properties;
 
