@@ -1,0 +1,27 @@
+volumes:
+  dbdata:
+
+services:
+  lottery:
+    image: gbaso/gw2e-lottery
+    container_name: gw2e-lottery
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/gw2e_lottery
+      SPRING_DATASOURCE_USERNAME: <user>
+      SPRING_DATASOURCE_PASSWORD: <password>
+    ports:
+    - 8081:8080
+    restart: unless-stopped
+    depends_on:
+      - mongo
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: <user>
+      POSTGRES_PASSWORD: <password>
+      POSTGRES_DB: gw2e_lottery
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+    - 9432:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data
