@@ -1,4 +1,4 @@
-package com.github.gbaso.gw2elottery.data.entity;
+package com.github.gbaso.gw2elottery.enterer;
 
 import java.time.Instant;
 
@@ -12,7 +12,7 @@ import lombok.With;
 
 @Builder
 @Document
-public record LotteryLog(
+record LotteryLog(
         @Id
         String id,
         @Version
@@ -27,7 +27,7 @@ public record LotteryLog(
         Instant timestamp
 ) {
 
-    public static LotteryLog of(String accountName, String giveawayId) {
+    static LotteryLog of(String accountName, String giveawayId) {
         return LotteryLog.builder()
                 .accountName(accountName)
                 .giveawayId(giveawayId)

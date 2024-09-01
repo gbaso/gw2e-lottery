@@ -1,11 +1,11 @@
-package com.github.gbaso.gw2elottery.data.dto;
+package com.github.gbaso.gw2elottery.giveaway;
 
 import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record Giveaway(
+record Giveaway(
         @JsonProperty("_id")
         String id,
         String group,
@@ -15,6 +15,6 @@ public record Giveaway(
         int prizepool,
         int contestants) {
 
-    public record Prize(int id, int count) {}
+    record Prize(int id, int count) {}
 
 }

@@ -1,4 +1,4 @@
-package com.github.gbaso.gw2elottery.service;
+package com.github.gbaso.gw2elottery.giveaway;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.gbaso.gw2elottery.data.dto.Giveaway;
-import com.github.gbaso.gw2elottery.data.dto.Partecipation;
+import com.github.gbaso.gw2elottery.client.Gw2EfficiencyClient;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +21,13 @@ public class GiveawayService {
     private final Gw2EfficiencyClient client;
     private final ObjectMapper mapper;
 
-    public List<Giveaway> list() {
+    List<Giveaway> list() {
         return client
                 .get("giveaways/list", Map.of())
                 .body(new ParameterizedTypeReference<>() {});
     }
 
-    public Giveaway current() {
+    Giveaway current() {
         List<Giveaway> giveaways = list();
         return giveaways.stream()
                 .filter(it -> between(Instant.now(), it.startsAt(), it.endsAt()))
@@ -37,13 +36,17 @@ public class GiveawayService {
                 .orElseThrow();
     }
 
-    public List<Partecipation> participation(String name) {
+    public String currentId() {
+        return current().id();
+    }
+
+    List<Partecipation> participation(String name) {
         return client
                 .get("giveaways/participation", Map.of("name", name))
                 .body(new ParameterizedTypeReference<>() {});
     }
 
-    public boolean enteredCurrent(String name) {
+    boolean enteredCurrent(String name) {
         Giveaway current = current();
         return entered(name, current.id());
     }
@@ -53,7 +56,7 @@ public class GiveawayService {
         return participations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
     }
 
-    public String enterCurrent(String name) throws IOException {
+    String enterCurrent(String name) throws IOException {
         Giveaway current = current();
         return enter(name, current.id());
     }

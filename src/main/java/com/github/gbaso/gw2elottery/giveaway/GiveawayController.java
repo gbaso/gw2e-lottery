@@ -1,4 +1,4 @@
-package com.github.gbaso.gw2elottery.controller;
+package com.github.gbaso.gw2elottery.giveaway;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.gbaso.gw2elottery.data.dto.Giveaway;
-import com.github.gbaso.gw2elottery.data.dto.Partecipation;
-import com.github.gbaso.gw2elottery.service.GiveawayService;
 
 import lombok.RequiredArgsConstructor;
 

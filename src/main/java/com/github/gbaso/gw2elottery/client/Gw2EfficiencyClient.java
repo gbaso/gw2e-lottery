@@ -1,4 +1,4 @@
-package com.github.gbaso.gw2elottery.service;
+package com.github.gbaso.gw2elottery.client;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClient.ResponseSpec;
-
-import com.github.gbaso.gw2elottery.config.Gw2Properties;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +21,7 @@ public class Gw2EfficiencyClient {
 
     private final Gw2Properties properties;
 
-    ResponseSpec get(String path, Map<String, String> params) {
+    public ResponseSpec get(String path, Map<String, String> params) {
         Map<String, List<String>> multiValueParam = params
                 .entrySet()
                 .stream()
@@ -31,7 +29,7 @@ public class Gw2EfficiencyClient {
         return getMultivalue(path, multiValueParam);
     }
 
-    ResponseSpec getMultivalue(String path, Map<String, List<String>> params) {
+    public ResponseSpec getMultivalue(String path, Map<String, List<String>> params) {
         String apiVersion = properties.api().version();
         return client
                 .get()
