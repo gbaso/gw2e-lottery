@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,33 +19,47 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/giveaways")
-public class GiveawayController {
+class GiveawayController {
 
     private final GiveawayService giveawayService;
 
     @GetMapping
-    public List<Giveaway> giveaways() throws IOException {
+    List<Giveaway> giveaways() {
         return giveawayService.list();
     }
 
-    @GetMapping("/current")
-    public Giveaway current() throws IOException {
-        return giveawayService.current();
-    }
-
     @GetMapping("/participation")
-    public List<Partecipation> participation(@RequestParam String name) throws IOException {
+    List<Partecipation> participation(@RequestParam String name) {
         return giveawayService.participation(name);
     }
 
+    @PostMapping("/entered")
+    boolean entered(@RequestBody EnterGiveawayRequest request) {
+        return giveawayService.entered(request.name(), request.giveawayId());
+    }
+
+    @PostMapping("/enter")
+    String enter(@RequestBody EnterGiveawayRequest request) throws IOException {
+        return giveawayService.enter(request.name(), request.giveawayId());
+    }
+
+    @GetMapping("/current")
+    Giveaway current() {
+        return giveawayService.current();
+    }
+
     @GetMapping("/current/entered")
-    public boolean entered(@RequestParam String name) throws IOException {
+    boolean entered(@RequestParam String name) {
         return giveawayService.enteredCurrent(name);
     }
 
     @PostMapping("/current/enter")
-    public String enter(String name, String giveawayId) throws IOException {
-        return giveawayService.enter(name, giveawayId);
+    String enterCurrent(@RequestBody EnterCurrentGiveawayRequest request) throws IOException {
+        return giveawayService.enterCurrent(request.name());
     }
+
+    record EnterCurrentGiveawayRequest(String name) {}
+
+    record EnterGiveawayRequest(String name, String giveawayId) {}
 
 }

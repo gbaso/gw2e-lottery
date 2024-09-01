@@ -53,6 +53,11 @@ public class GiveawayService {
         return participations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
     }
 
+    public String enterCurrent(String name) throws IOException {
+        Giveaway current = current();
+        return enter(name, current.id());
+    }
+
     public String enter(String name, String giveawayId) throws IOException {
         String content = client
                 .get("giveaways/enter", Map.of("name", name, "giveaway_id", giveawayId))
