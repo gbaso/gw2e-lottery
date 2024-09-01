@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,8 +15,6 @@ import com.github.gbaso.gw2elottery.data.dto.Partecipation;
 
 import lombok.RequiredArgsConstructor;
 
-import static java.util.Objects.requireNonNull;
-
 @Service
 @RequiredArgsConstructor
 public class GiveawayService {
@@ -24,14 +22,13 @@ public class GiveawayService {
     private final Gw2EfficiencyClient client;
     private final ObjectMapper mapper;
 
-    public List<Giveaway> list() throws IOException {
-        try (var response = client.get("giveaways/list", Map.of())) {
-            var type = mapper.getTypeFactory().constructCollectionType(List.class, Giveaway.class);
-            return mapper.readValue(response.body().byteStream(), type);
-        }
+    public List<Giveaway> list() {
+        return client
+                .get("giveaways/list", Map.of())
+                .body(new ParameterizedTypeReference<>() {});
     }
 
-    public Giveaway current() throws IOException {
+    public Giveaway current() {
         List<Giveaway> giveaways = list();
         return giveaways.stream()
                 .filter(it -> between(Instant.now(), it.startsAt(), it.endsAt()))
@@ -40,28 +37,28 @@ public class GiveawayService {
                 .orElseThrow();
     }
 
-    public List<Partecipation> participation(String name) throws IOException {
-        try (var response = client.get("giveaways/participation", Map.of("name", name))) {
-            var type = mapper.getTypeFactory().constructCollectionType(List.class, Partecipation.class);
-            return mapper.readValue(requireNonNull(response.body()).byteStream(), type);
-        }
+    public List<Partecipation> participation(String name) {
+        return client
+                .get("giveaways/participation", Map.of("name", name))
+                .body(new ParameterizedTypeReference<>() {});
     }
 
-    public boolean enteredCurrent(String name) throws IOException {
-        var current = current();
+    public boolean enteredCurrent(String name) {
+        Giveaway current = current();
         return entered(name, current.id());
     }
 
-    public boolean entered(String name, String giveawayId) throws IOException {
+    public boolean entered(String name, String giveawayId) {
         List<Partecipation> participations = participation(name);
         return participations.stream().anyMatch(it -> it.giveawayId().equals(giveawayId));
     }
 
     public String enter(String name, String giveawayId) throws IOException {
-        try (var response = client.get("giveaways/enter", Map.of("name", name, "giveaway_id", giveawayId))) {
-            JsonNode json = mapper.readTree(requireNonNull(response.body()).byteStream());
-            return json.get("status").asText();
-        }
+        String content = client
+                .get("giveaways/enter", Map.of("name", name, "giveaway_id", giveawayId))
+                .body(String.class);
+        JsonNode json = mapper.readTree(content);
+        return json.get("status").asText();
     }
 
     private boolean between(Instant now, Instant startsAt, Instant endsAt) {

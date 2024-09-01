@@ -1,9 +1,15 @@
 spring:
-  jpa:
-    open-in-view: false
-    show-sql: false
-    hibernate:
-      ddl-auto: update
+  data:
+    mongodb:
+      auto-index-creation: true
+
+gw2:
+  api:
+    version: 2021-07-24T00:00:00Z
+
+logging:
+  level:
+    root: info
 
 management:
   endpoints:
@@ -14,12 +20,3 @@ management:
         - health
         - metrics
         - loggers
-
-logging:
-  level:
-    root: info
-    jdbc: warn
-
-gw2:
-  api:
-    version: 2021-07-24T00:00:00Z
