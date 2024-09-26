@@ -24,21 +24,11 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: SPRING_DATASOURCE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: gw2e-lottery-configmap
-              key: postgres-url
-        - name: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATA_MONGODB_URI
           valueFrom:
             secretKeyRef:
               name: gw2e-lottery-secret
-              key: postgres-username
-        - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: gw2e-lottery-secret
-              key: postgres-password
+              key: mongodb-uri
 ---
 apiVersion: v1
 kind: Service
