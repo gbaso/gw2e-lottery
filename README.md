@@ -12,9 +12,7 @@ Run it:
 ```sh
 docker run -d \
   -p 8080:8080 \
-  -e SPRING_DATASOURCE_URL=<your_jdbc_connection_url>  \
-  -e SPRING_DATASOURCE_USERNAME=<your_jdbc_connection_username> \
-  -e SPRING_DATASOURCE_PASSWORD=<your_jdbc_connection_password>  \
+  -e SPRING_DATA_MONGODB_URI=<your_mongodb_connection_uri>  \
   gbaso/gw2e-lottery:<version>
 ```
 
