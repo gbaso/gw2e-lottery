@@ -17,6 +17,9 @@
 
     <properties>
         <java.version>21</java.version>
+        <docker.publishRegistry.username />
+        <docker.publishRegistry.password />
+
         <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
     </properties>
 
@@ -82,12 +85,18 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>gbaso/${project.artifactId}:${project.version}</name>
-                        <tags>
-                            <tag>gbaso/${project.artifactId}:latest</tag>
-                        </tags>
                         <builder>paketobuildpacks/builder-jammy-tiny</builder>
+                        <name>ghcr.io/gbaso/${project.artifactId}:${project.version}</name>
+                        <tags>
+                            <tag>ghcr.io/gbaso/${project.artifactId}:latest</tag>
+                        </tags>
                     </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>${docker.publishRegistry.username}</username>
+                            <password>${docker.publishRegistry.password}</password>
+                        </publishRegistry>
+                    </docker>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
