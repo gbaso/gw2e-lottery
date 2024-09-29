@@ -6,4 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/name: gw2e-lottery
     app.kubernetes.io/component: gw2e-lottery-config
-data: {}
+data:
+  application.yml: |-
+    { }

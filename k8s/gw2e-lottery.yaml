@@ -60,6 +60,17 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        volumeMounts:
+        - name: data
+          mountPath: /home/cnb/data
+        - name: config
+          mountPath: /workspace/config
+      volumes:
+      - name: data
+        emptyDir: { }
+      - name: config
+        configMap:
+          name: gw2e-lottery
 ---
 apiVersion: v1
 kind: Service
