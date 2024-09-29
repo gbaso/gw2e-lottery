@@ -3,7 +3,7 @@ volumes:
 
 services:
   lottery:
-    image: gbaso/gw2e-lottery
+    image: ghcr.io/gbaso/gw2e-lottery
     container_name: gw2e-lottery
     environment:
       SPRING_DATA_MONGODB_HOST: mongo

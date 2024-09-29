@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: gw2e-lottery
-        image: gbaso/gw2e-lottery:latest
+        image: ghcr.io/gbaso/gw2e-lottery:1.1.5
         resources:
           limits:
             memory: "128Mi"
