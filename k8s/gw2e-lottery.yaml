@@ -4,15 +4,20 @@ metadata:
   name: gw2e-lottery
   namespace: gw2e-lottery
   labels:
-    app: gw2e-lottery
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
+    app.kubernetes.io/version: 1.1.5
 spec:
   selector:
     matchLabels:
-      app: gw2e-lottery
+      app.kubernetes.io/name: gw2e-lottery
+      app.kubernetes.io/component: gw2e-lottery
   template:
     metadata:
       labels:
-        app: gw2e-lottery
+        app.kubernetes.io/name: gw2e-lottery
+        app.kubernetes.io/component: gw2e-lottery
+        app.kubernetes.io/version: 1.1.5
     spec:
       containers:
       - name: gw2e-lottery
@@ -35,9 +40,13 @@ kind: Service
 metadata:
   name: gw2e-lottery
   namespace: gw2e-lottery
+  labels:
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
 spec:
   selector:
-    app: gw2e-lottery
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
   ports:
   - port: 8080
     targetPort: 8080

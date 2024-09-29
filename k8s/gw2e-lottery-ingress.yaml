@@ -4,7 +4,8 @@ metadata:
   name: gw2e-lottery-ingress
   namespace: gw2e-lottery
   labels:
-    name: gw2e-lottery-ingress
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery-ingress
 spec:
   rules:
   - host: gw2e-lottery.local

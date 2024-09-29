@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: gw2e-lottery-configmap
   namespace: gw2e-lottery
+  labels:
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery-config
 data: {}
