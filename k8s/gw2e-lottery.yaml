@@ -71,6 +71,7 @@ spec:
       - name: config
         configMap:
           name: gw2e-lottery
+      automountServiceAccountToken: false
 ---
 apiVersion: v1
 kind: Service
