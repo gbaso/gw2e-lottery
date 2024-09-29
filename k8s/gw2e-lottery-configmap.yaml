@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gw2e-lottery-configmap
+  name: gw2e-lottery
   namespace: gw2e-lottery
   labels:
     app.kubernetes.io/name: gw2e-lottery
