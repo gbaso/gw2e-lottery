@@ -27,7 +27,7 @@ spec:
         - name: SPRING_DATA_MONGODB_URI
           valueFrom:
             secretKeyRef:
-              name: gw2e-lottery-secret
+              name: mongodb
               key: mongodb-uri
 ---
 apiVersion: v1
