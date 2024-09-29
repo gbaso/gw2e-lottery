@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/component: gw2e-lottery-ingress
 spec:
   rules:
-  - host: gw2e-lottery.local
+  - host: gw2e-lottery.internal
     http:
       paths:
       - pathType: Prefix
@@ -17,4 +17,4 @@ spec:
           service:
             name: gw2e-lottery
             port: 
-              number: 8080
+              name: http

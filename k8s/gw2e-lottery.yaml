@@ -86,5 +86,6 @@ spec:
     app.kubernetes.io/name: gw2e-lottery
     app.kubernetes.io/component: gw2e-lottery
   ports:
-    - port: 8080
+    - name: http
+      port: 80
       targetPort: 8080
