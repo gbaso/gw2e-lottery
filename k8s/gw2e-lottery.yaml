@@ -55,6 +55,10 @@ spec:
             secretKeyRef:
               name: mongodb
               key: mongodb-uri
+        - name: MANAGEMENT_METRICS_TAGS_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
 ---
 apiVersion: v1
 kind: Service
