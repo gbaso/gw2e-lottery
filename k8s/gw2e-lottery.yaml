@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: gw2e-lottery
     app.kubernetes.io/version: 1.1.5
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: gw2e-lottery
@@ -23,9 +24,14 @@ spec:
       - name: gw2e-lottery
         image: ghcr.io/gbaso/gw2e-lottery:1.1.5
         resources:
-          limits:
+          requests:
+            cpu: "25m"
             memory: "128Mi"
-            cpu: "100m"
+            ephemeral-storage: "10Mi"
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+            ephemeral-storage: "100Mi"
         ports:
         - containerPort: 8080
         env:
