@@ -12,7 +12,7 @@ class Gw2eLotteryApplicationTests {
 
     @Test
     void contextLoads() {
-    	assertTrue(true);
+        assertTrue(true);
     }
 
 }

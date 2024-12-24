@@ -1,13 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gw2e-lottery-ingress
+  name: gw2e-lottery
   namespace: gw2e-lottery
   labels:
-    name: gw2e-lottery-ingress
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery-ingress
 spec:
   rules:
-  - host: gw2e-lottery.local
+  - host: gw2e-lottery.internal
     http:
       paths:
       - pathType: Prefix
@@ -16,4 +17,4 @@ spec:
           service:
             name: gw2e-lottery
             port: 
-              number: 8080
+              name: http

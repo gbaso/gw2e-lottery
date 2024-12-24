@@ -6,17 +6,20 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.4.1</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.github.gbaso</groupId>
     <artifactId>gw2e-lottery</artifactId>
-    <version>1.1.5-SNAPSHOT</version>
+    <version>1.1.6-SNAPSHOT</version>
     <name>gw2e-lottery</name>
     <description>Automatic lottery subscriber for GW2 Efficiency</description>
 
     <properties>
         <java.version>23</java.version>
+        <docker.publishRegistry.username />
+        <docker.publishRegistry.password />
+
         <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
     </properties>
 
@@ -82,12 +85,18 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>gbaso/${project.artifactId}:${project.version}</name>
-                        <tags>
-                            <tag>gbaso/${project.artifactId}:latest</tag>
-                        </tags>
                         <builder>paketobuildpacks/builder-jammy-tiny</builder>
+                        <name>ghcr.io/gbaso/${project.artifactId}:${project.version}</name>
+                        <tags>
+                            <tag>ghcr.io/gbaso/${project.artifactId}:latest</tag>
+                        </tags>
                     </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>${docker.publishRegistry.username}</username>
+                            <password>${docker.publishRegistry.password}</password>
+                        </publishRegistry>
+                    </docker>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

@@ -4,40 +4,88 @@ metadata:
   name: gw2e-lottery
   namespace: gw2e-lottery
   labels:
-    app: gw2e-lottery
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
+    app.kubernetes.io/version: 1.1.5
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: gw2e-lottery
+      app.kubernetes.io/name: gw2e-lottery
+      app.kubernetes.io/component: gw2e-lottery
   template:
     metadata:
       labels:
-        app: gw2e-lottery
+        app.kubernetes.io/name: gw2e-lottery
+        app.kubernetes.io/component: gw2e-lottery
+        app.kubernetes.io/version: 1.1.5
     spec:
       containers:
-      - name: gw2e-lottery
-        image: gbaso/gw2e-lottery:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
-        ports:
-        - containerPort: 8080
-        env:
-        - name: SPRING_DATA_MONGODB_URI
-          valueFrom:
-            secretKeyRef:
-              name: gw2e-lottery-secret
-              key: mongodb-uri
+        - name: gw2e-lottery
+          image: ghcr.io/gbaso/gw2e-lottery:1.1.5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: mongodb-uri
+            - name: MANAGEMENT_METRICS_TAGS_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+              ephemeral-storage: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+              ephemeral-storage: "100Mi"
+          startupProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 8080
+            initialDelaySeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 8080
+            initialDelaySeconds: 2
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 8080
+          volumeMounts:
+            - name: data
+              mountPath: /home/cnb/data
+            - name: config
+              mountPath: /workspace/config
+      volumes:
+        - name: data
+          emptyDir: { }
+        - name: config
+          configMap:
+            name: gw2e-lottery
+      automountServiceAccountToken: false
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: gw2e-lottery
   namespace: gw2e-lottery
+  labels:
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
 spec:
   selector:
-    app: gw2e-lottery
+    app.kubernetes.io/name: gw2e-lottery
+    app.kubernetes.io/component: gw2e-lottery
   ports:
-  - port: 8080
-    targetPort: 8080
+    - name: http
+      port: 80
+      targetPort: 8080

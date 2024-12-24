@@ -37,3 +37,13 @@ management:
         - health
         - metrics
         - loggers
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState
