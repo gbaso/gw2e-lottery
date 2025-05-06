@@ -16,7 +16,7 @@
     <description>Automatic lottery subscriber for GW2 Efficiency</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>23</java.version>
         <docker.publishRegistry.username />
         <docker.publishRegistry.password />
 
