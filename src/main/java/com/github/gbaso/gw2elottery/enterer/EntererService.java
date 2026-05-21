@@ -1,16 +1,13 @@
 package com.github.gbaso.gw2elottery.enterer;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.github.gbaso.gw2elottery.giveaway.GiveawayService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.github.gbaso.gw2elottery.giveaway.GiveawayService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -22,7 +19,7 @@ class EntererService {
     private final GiveawayService giveawayService;
 
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
-    void enterGiveaway() throws IOException {
+    void enterGiveaway() {
         String currentGiveawayId = giveawayService.currentId();
         List<Account> accounts = accountRepository.findAll();
         for (var account : accounts) {
@@ -36,7 +33,7 @@ class EntererService {
         }
     }
 
-    private void enterGiveaway(String currentGiveawayId, String accountName) throws IOException {
+    private void enterGiveaway(String currentGiveawayId, String accountName) {
         var lotteryLog = lotteryLogRepository.save(LotteryLog.of(accountName, currentGiveawayId));
         try {
             String status = giveawayService.enter(accountName, currentGiveawayId);

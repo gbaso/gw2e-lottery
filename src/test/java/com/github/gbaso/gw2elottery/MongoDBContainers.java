@@ -1,8 +1,8 @@
 package com.github.gbaso.gw2elottery;
 
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.mongodb.MongoDBContainer;
 
 public interface MongoDBContainers {
 

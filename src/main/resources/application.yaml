@@ -7,7 +7,6 @@ server:
   compression:
     enabled: true
   forward-headers-strategy: framework
-  shutdown: graceful
 
 spring:
   data:

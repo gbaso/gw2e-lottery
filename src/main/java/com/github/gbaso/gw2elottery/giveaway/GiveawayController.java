@@ -1,16 +1,9 @@
 package com.github.gbaso.gw2elottery.giveaway;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,7 +28,7 @@ class GiveawayController {
     }
 
     @PostMapping("/enter")
-    String enter(@RequestBody EnterGiveawayRequest request) throws IOException {
+    String enter(@RequestBody EnterGiveawayRequest request) {
         return giveawayService.enter(request.name(), request.giveawayId());
     }
 
@@ -50,7 +43,7 @@ class GiveawayController {
     }
 
     @PostMapping("/current/enter")
-    String enterCurrent(@RequestBody EnterCurrentGiveawayRequest request) throws IOException {
+    String enterCurrent(@RequestBody EnterCurrentGiveawayRequest request) {
         return giveawayService.enterCurrent(request.name());
     }
 
