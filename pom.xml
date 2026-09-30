@@ -19,8 +19,6 @@
         <java.version>25</java.version>
         <docker.publishRegistry.username />
         <docker.publishRegistry.password />
-
-        <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -144,24 +142,6 @@
                         <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
                     </includeOnlyProperties>
                     <commitIdGenerationMode>full</commitIdGenerationMode>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.amashchenko.maven.plugin</groupId>
-                <artifactId>gitflow-maven-plugin</artifactId>
-                <version>${gitflow-maven-plugin.version}</version>
-                <configuration>
-                    <commitMessagePrefix xml:space="preserve">[RELEASE] </commitMessagePrefix>
-                    <gpgSignCommit>true</gpgSignCommit>
-                    <gpgSignTag>true</gpgSignTag>
-                    <pushRemote>true</pushRemote>
-                    <versionDigitToIncrement>2</versionDigitToIncrement>
-                    <verbose>true</verbose>
-                    <gitFlowConfig>
-                        <versionTagPrefix>v</versionTagPrefix>
-                        <productionBranch>main</productionBranch>
-                        <developmentBranch>main </developmentBranch>
-                    </gitFlowConfig>
                 </configuration>
             </plugin>
         </plugins>
